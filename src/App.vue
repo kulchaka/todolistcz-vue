@@ -75,9 +75,9 @@
                     v-model="work"
                     id="typeofwork"
                     class="ml-2 rounded-lg border-2 border-gray-500 hover:border-cyan-500 focus:border-cyan-500">
-                      <option value="coder">Kódování</option>
-                      <option value="dev">Programování</option>
-                      <option value="meeting">Meetingy</option>
+                      <option>Kódování</option>
+                      <option>Programování</option>
+                      <option>Meetingy</option>
                     </select>
                 </div>
               </div>
@@ -92,10 +92,10 @@
   <table class="table-auto">
     <thead>
       <tr>
-        <th class="cursor-pointer p-2">Název Úkolu</th>
-        <th class="cursor-pointer p-2">Datum a Čas Od</th>
-        <th class="cursor-pointer p-2">Datum a Čas Do</th>
-        <th class="cursor-pointer p-2">Druh Práce</th>
+        <th @click="sortByName" class="cursor-pointer p-2">Název Úkolu</th>
+        <th @click="sortByStartDate" class="cursor-pointer p-2">Datum a Čas Od</th>
+        <th @click="sortByEndDate" class="cursor-pointer p-2">Datum a Čas Do</th>
+        <th @click="sortByWork" class="cursor-pointer p-2">Druh Práce</th>
       </tr>
     </thead>
     <tbody>
@@ -113,17 +113,6 @@
           </svg>
         </span>
       </tr>
-      <!-- <tr class="hover:bg-gray-200">
-        <td class="text-center p-2">Vue JS 3</td>
-        <td class="text-right p-2">27/02/2021 14:30</td>
-        <td class="text-right p-2">28/02/2021 20:30</td>
-        <td class="text-right p-2">FrontEnd</td>
-        <span class="h-6 flex items-center sm:h-7 pt-2.5 cursor-pointer">
-          <svg class="flex-shrink-0 h-6 w-5 text-red-200 hover:text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-          </svg>
-        </span>
-      </tr> -->
     </tbody>
 </table>
   </div>
@@ -153,9 +142,13 @@ export default {
       event.target.reset()
     },
     deleteItem (i) {
-      console.log(i)
-      console.log('del')
       this.arr.splice(i, 1)
+    },
+    sortByName () {
+      this.arr.sort((a, b) => a.name > b.name ? 1 : -1)
+    },
+    sortByWork () {
+      this.arr.sort((a, b) => a.work > b.work ? 1 : -1)
     }
   }
 }
