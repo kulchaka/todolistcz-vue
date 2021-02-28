@@ -80,7 +80,12 @@
                 </span>
                 <div class="flex flex-col">
                   <label class="ml-2" for="typeofwork">Druh Práce:</label>
+                  <div class="flex flex-col">
+                    <label for="schedule"><input v-model="workSelected" value='yes' type="radio" name="job" id="schedule"> vybrat z seznamu</label>
+                    <label for="owntype"><input v-model="workSelected" value='no' type="radio" name="job" id="owntype"> napsat svuj druh práce</label>
+                  </div>
                    <select
+                    v-if="workSelected === 'yes'"
                     v-model="work"
                     id="typeofwork"
                     class="ml-2 rounded-lg border-2 border-gray-500 hover:border-cyan-500 focus:border-cyan-500"
@@ -90,6 +95,14 @@
                       <option>Programování</option>
                       <option>Meetingy</option>
                     </select>
+                    <input
+                      v-else
+                      v-model="work"
+                      class="ml-2 rounded-lg border-2 border-gray-500 hover:border-cyan-500 focus:border-cyan-500"
+                      type="text"
+                      id="worktext"
+                      required
+                    >
                 </div>
               </div>
               <div class="inline-block mt-2 self-end">
@@ -145,7 +158,7 @@ export default {
       sortedTimeStart: false,
       sortedTimeEnd: false,
       sortedWork: false,
-      validate: false
+      workSelected: 'yes'
     }
   },
   methods: {
@@ -260,18 +273,11 @@ export default {
         this.sortedTimeEnd = false
         this.sortedWork = false
       }
-    },
-    buttonValidate () {
-      if (this.name && this.timestart && this.timeend && this.work) {
-        this.validate = true
-      } else {
-        this.validate = false
-      }
     }
   },
   watch: {
-    name () {
-      console.log(this.name)
+    workSelected () {
+      console.log(this.workSelected)
     }
   }
 }
