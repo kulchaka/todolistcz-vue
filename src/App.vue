@@ -103,10 +103,10 @@
   <table class="table-auto">
     <thead>
       <tr>
-        <th @click="sortByName" class="cursor-pointer p-2">Název Úkolu</th>
-        <th @click="sortByStartDate" class="cursor-pointer p-2">Datum a Čas Od</th>
-        <th @click="sortByEndDate" class="cursor-pointer p-2">Datum a Čas Do</th>
-        <th @click="sortByWork" class="cursor-pointer p-2">Druh Práce</th>
+        <th @click="sortByName" class="cursor-pointer select-none p-2">Název Úkolu</th>
+        <th @click="sortByStartDate" class="cursor-pointer select-none p-2">Datum a Čas Od</th>
+        <th @click="sortByEndDate" class="cursor-pointer select-none p-2">Datum a Čas Do</th>
+        <th @click="sortByWork" class="cursor-pointer select-none p-2">Druh Práce</th>
       </tr>
     </thead>
     <tbody>
@@ -144,7 +144,8 @@ export default {
       sortedName: false,
       sortedTimeStart: false,
       sortedTimeEnd: false,
-      sortedWork: false
+      sortedWork: false,
+      validate: false
     }
   },
   methods: {
@@ -172,7 +173,8 @@ export default {
         this.sortedTimeEnd = false
         this.sortedWork = false
       } else {
-        this.arr.reverse()
+        // this.arr.reverse()
+        this.arr.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? -1 : 1)
         this.sortedName = false
         this.sortedTimeStart = false
         this.sortedTimeEnd = false
@@ -187,7 +189,8 @@ export default {
         this.sortedTimeEnd = false
         this.sortedWork = true
       } else {
-        this.arr.reverse()
+        // this.arr.reverse()
+        this.arr.sort((a, b) => a.work > b.work ? -1 : 1)
         this.sortedName = false
         this.sortedTimeStart = false
         this.sortedTimeEnd = false
@@ -197,8 +200,8 @@ export default {
     sortByStartDate () {
       if (!this.sortedTimeStart) {
         this.arr.sort((a, b) => {
-          a = Date.parse(a.timeend)
-          b = Date.parse(b.timeend)
+          a = Date.parse(a.timestart)
+          b = Date.parse(b.timestart)
           if (a > b) {
             return 1
           } else {
@@ -210,7 +213,16 @@ export default {
         this.sortedTimeEnd = false
         this.sortedWork = false
       } else {
-        this.arr.reverse()
+        // this.arr.reverse()
+        this.arr.sort((a, b) => {
+          a = Date.parse(a.timestart)
+          b = Date.parse(b.timestart)
+          if (a > b) {
+            return -1
+          } else {
+            return 1
+          }
+        })
         this.sortedName = false
         this.sortedTimeStart = false
         this.sortedTimeEnd = false
@@ -233,12 +245,33 @@ export default {
         this.sortedTimeEnd = true
         this.sortedWork = false
       } else {
-        this.arr.reverse()
+        // this.arr.reverse()
+        this.arr.sort((a, b) => {
+          a = Date.parse(a.timeend)
+          b = Date.parse(b.timeend)
+          if (a > b) {
+            return -1
+          } else {
+            return 1
+          }
+        })
         this.sortedName = false
         this.sortedTimeStart = false
         this.sortedTimeEnd = false
         this.sortedWork = false
       }
+    },
+    buttonValidate () {
+      if (this.name && this.timestart && this.timeend && this.work) {
+        this.validate = true
+      } else {
+        this.validate = false
+      }
+    }
+  },
+  watch: {
+    name () {
+      console.log(this.name)
     }
   }
 }
