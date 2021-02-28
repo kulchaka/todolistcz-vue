@@ -18,7 +18,12 @@
                   <label class="ml-2" for="name">Název Úkolu:</label>
                    <input
                     v-model.trim="name"
-                    class="ml-2 rounded-lg border-2 border-gray-500 hover:border-cyan-500 focus:border-cyan-500 w-full" type="text" placeholder="Úkol" id="name">
+                    class="ml-2 rounded-lg border-2 border-gray-500 hover:border-cyan-500 focus:border-cyan-500 w-full"
+                    type="text"
+                    placeholder="Úkol"
+                    id="name"
+                    required
+                    >
                 </div>
               </div>
               <div class="flex items-end">
@@ -37,7 +42,9 @@
                     v-model="timestart"
                     class="ml-2 rounded-lg border-2 border-gray-500 hover:border-cyan-500 focus:border-cyan-500"
                     type="datetime-local"
-                    id="timefrom">
+                    id="timefrom"
+                    required
+                    >
                 </div>
               </div>
               <div class="flex items-end">
@@ -56,7 +63,9 @@
                     v-model="timeend"
                     class="ml-2 rounded-lg border-2 border-gray-500 hover:border-cyan-500 focus:border-cyan-500"
                     type="datetime-local"
-                    id="timeend">
+                    id="timeend"
+                    required
+                    >
                 </div>
               </div>
                <div class="flex items-end">
@@ -74,7 +83,9 @@
                    <select
                     v-model="work"
                     id="typeofwork"
-                    class="ml-2 rounded-lg border-2 border-gray-500 hover:border-cyan-500 focus:border-cyan-500">
+                    class="ml-2 rounded-lg border-2 border-gray-500 hover:border-cyan-500 focus:border-cyan-500"
+                    required
+                    >
                       <option>Kódování</option>
                       <option>Programování</option>
                       <option>Meetingy</option>
@@ -129,12 +140,18 @@ export default {
       timestart: '',
       timeend: '',
       work: '',
-      arr: []
+      arr: [],
+      sorted: false
     }
   },
   methods: {
     submitHandler (event) {
-      this.arr.push({ name: this.name, timestart: this.timestart, timeend: this.timeend, work: this.work })
+      this.arr.push({
+        name: this.name,
+        timestart: this.timestart,
+        timeend: this.timeend,
+        work: this.work
+      })
       this.name = ''
       this.timestart = ''
       this.timeend = ''
@@ -145,10 +162,27 @@ export default {
       this.arr.splice(i, 1)
     },
     sortByName () {
-      this.arr.sort((a, b) => a.name > b.name ? 1 : -1)
+      if (!this.sorted) {
+        this.arr.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1)
+        this.sorted = true
+      } else {
+        this.arr.reverse()
+        this.sorted = false
+      }
     },
     sortByWork () {
       this.arr.sort((a, b) => a.work > b.work ? 1 : -1)
+    },
+    sortByEndDate () {
+      this.arr.sort((a, b) => {
+        a = Date.parse(a.timeend)
+        b = Date.parse(b.timeend)
+        if (a > b) {
+          return 1
+        } else {
+          return -1
+        }
+      })
     }
   }
 }
