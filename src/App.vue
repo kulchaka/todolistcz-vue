@@ -1,46 +1,73 @@
 <template>
 <main class="h-screencontainer mx-auto p-8 flex">
   <div class="form max-h-315 max-w-full shadow-md rounded-xl bg-gradient-to-r from-gray-50  to-purple-50">
-    <form class="list-disc space-y-2 m-8 flex flex-col  ">
-              <div class="flex items-center">
+    <form
+      @submit.prevent="submitHandler"
+      class="list-disc space-y-2 m-8 flex flex-col">
+              <div class="flex items-end">
                 <span class="h-6 flex sm:h-7">
                   <svg class="flex-shrink-0 h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                   </svg>
                 </span>
-                   <input class="ml-2 rounded-lg border-2 border-gray-500 hover:border-cyan-500 focus:border-cyan-500 w-full" type="text" placeholder="Úkol" name="" id="name">
+                <div class="flex flex-col">
+                  <label class="ml-2" for="name">Název Úkolu:</label>
+                   <input
+                    v-model.trim="name"
+                    class="ml-2 rounded-lg border-2 border-gray-500 hover:border-cyan-500 focus:border-cyan-500 w-full" type="text" placeholder="Úkol" id="name">
+                </div>
               </div>
-              <div class="flex items-center">
+              <div class="flex items-end">
                 <span class="h-6 flex items-center sm:h-7">
                   <svg class="flex-shrink-0 h-5 w-5 text-cyan-500" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                   </svg>
                 </span>
-                   <input class="ml-2 rounded-lg border-2 border-gray-500 hover:border-cyan-500 focus:border-cyan-500" type="datetime-local" name="" id="">
+                <div class="flex flex-col">
+                  <label class="ml-2" for="timefrom">Datum a Čas Od:</label>
+                   <input
+                    v-model="timestart"
+                    class="ml-2 rounded-lg border-2 border-gray-500 hover:border-cyan-500 focus:border-cyan-500"
+                    type="datetime-local"
+                    id="timefrom">
+                </div>
               </div>
-              <div class="flex items-center">
+              <div class="flex items-end">
                 <span class="h-6 flex items-center sm:h-7">
                   <svg class="flex-shrink-0 h-5 w-5 text-cyan-500" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                   </svg>
                 </span>
-                   <input class="ml-2 rounded-lg border-2 border-gray-500 hover:border-cyan-500 focus:border-cyan-500" type="datetime-local" name="" id="">
+                <div class="flex flex-col">
+                  <label class="ml-2" for="timeend">Datum a Čas Do:</label>
+                   <input
+                    v-model="timeend"
+                    class="ml-2 rounded-lg border-2 border-gray-500 hover:border-cyan-500 focus:border-cyan-500"
+                    type="datetime-local"
+                    id="timeend">
+                </div>
               </div>
-               <div class="flex items-center">
+               <div class="flex items-end">
                 <span class="h-6 flex items-center sm:h-7">
                   <svg class="flex-shrink-0 h-5 w-5 text-cyan-500" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                   </svg>
                 </span>
-                   <select class="ml-2 rounded-lg border-2 border-gray-500 hover:border-cyan-500 focus:border-cyan-500">
+                <div class="flex flex-col">
+                  <label class="ml-2" for="typeofwork">Druh Práce:</label>
+                   <select
+                    v-model="work"
+                    id="typeofwork"
+                    class="ml-2 rounded-lg border-2 border-gray-500 hover:border-cyan-500 focus:border-cyan-500">
                       <option value="coder">Kódování</option>
-                      <option value="itak">Programování</option>
+                      <option value="dev">Programování</option>
                       <option value="meeting">Meetingy</option>
                     </select>
-              </div>
-             <div class="inline-block mt-2 self-end">
-                    <button type="button" class="text-lg py-2.5 px-10 rounded-lg border-2 border-gray-500 hover:border-cyan-500 hover:bg-cyan-500 hover:text-gray-50  ">Dodat</button>
                 </div>
+              </div>
+              <div class="inline-block mt-2 self-end">
+                <button type="submit" class="text-lg py-2.5 px-10 rounded-lg border-2 border-gray-500 hover:border-cyan-500 hover:bg-cyan-500 hover:text-gray-50">Dodat</button>
+              </div>
             </form>
   </div>
   <div class="shceduel max-w-full ml-5 p-4 shadow-md rounded-xl bg-gradient-to-r from-gray-50  to-purple-50">
@@ -86,7 +113,24 @@
 <script>
 
 export default {
-  name: 'App'
+  data () {
+    return {
+      name: '',
+      timestart: '',
+      timeend: '',
+      work: 'dev'
+    }
+  },
+  methods: {
+    submitHandler () {
+      console.group('Form Data:')
+      console.log('Název Úkolu:', this.name)
+      console.log('Datum a Čas Od:', this.timestart)
+      console.log('Datum a Čas Do:', this.timeend)
+      console.log('Druh Práce:', this.work)
+      console.groupEnd()
+    }
+  }
 }
 </script>
 
