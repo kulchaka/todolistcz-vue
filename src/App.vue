@@ -6,7 +6,11 @@
       class="list-disc space-y-2 m-8 flex flex-col">
               <div class="flex items-end">
                 <span class="h-6 flex sm:h-7">
-                  <svg class="flex-shrink-0 h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+                  <svg
+                    :class="{'text-cyan-500':name }"
+                    class="flex-shrink-0 h-5 w-5 text-red-500"
+                    viewBox="0 0 20 20"
+                    fill="currentColor">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                   </svg>
                 </span>
@@ -19,7 +23,11 @@
               </div>
               <div class="flex items-end">
                 <span class="h-6 flex items-center sm:h-7">
-                  <svg class="flex-shrink-0 h-5 w-5 text-cyan-500" viewBox="0 0 20 20" fill="currentColor">
+                  <svg
+                    :class="{'text-cyan-500':timestart }"
+                    class="flex-shrink-0 h-5 w-5 text-red-500"
+                    viewBox="0 0 20 20"
+                    fill="currentColor">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                   </svg>
                 </span>
@@ -34,7 +42,11 @@
               </div>
               <div class="flex items-end">
                 <span class="h-6 flex items-center sm:h-7">
-                  <svg class="flex-shrink-0 h-5 w-5 text-cyan-500" viewBox="0 0 20 20" fill="currentColor">
+                  <svg
+                    :class="{'text-cyan-500':timeend }"
+                    class="flex-shrink-0 h-5 w-5 text-red-500"
+                    viewBox="0 0 20 20"
+                    fill="currentColor">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                   </svg>
                 </span>
@@ -49,7 +61,11 @@
               </div>
                <div class="flex items-end">
                 <span class="h-6 flex items-center sm:h-7">
-                  <svg class="flex-shrink-0 h-5 w-5 text-cyan-500" viewBox="0 0 20 20" fill="currentColor">
+                  <svg
+                    :class="{'text-cyan-500':work }"
+                    class="flex-shrink-0 h-5 w-5 text-red-500"
+                    viewBox="0 0 20 20"
+                    fill="currentColor">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                   </svg>
                 </span>
@@ -66,7 +82,9 @@
                 </div>
               </div>
               <div class="inline-block mt-2 self-end">
-                <button type="submit" class="text-lg py-2.5 px-10 rounded-lg border-2 border-gray-500 hover:border-cyan-500 hover:bg-cyan-500 hover:text-gray-50">Dodat</button>
+                <button
+                  type="submit"
+                  class="text-lg py-2.5 px-10 rounded-lg border-2 border-gray-500  hover:border-cyan-500 hover:bg-cyan-500 hover:text-gray-50">Dodat</button>
               </div>
             </form>
   </div>
@@ -118,17 +136,26 @@ export default {
       name: '',
       timestart: '',
       timeend: '',
-      work: 'dev'
+      work: '',
+      arr: []
     }
   },
   methods: {
-    submitHandler () {
+    submitHandler (event) {
       console.group('Form Data:')
       console.log('Název Úkolu:', this.name)
-      console.log('Datum a Čas Od:', this.timestart)
+      console.log('Datum a Čas Od:', Boolean(this.timestart))
       console.log('Datum a Čas Do:', this.timeend)
       console.log('Druh Práce:', this.work)
       console.groupEnd()
+
+      this.arr.push({ name: this.name, timestart: this.timestart, timeend: this.timeend, work: this.work })
+      console.log(this.arr)
+      this.name = ''
+      this.timestart = ''
+      this.timeend = ''
+      this.work = ''
+      event.target.reset()
     }
   }
 }
