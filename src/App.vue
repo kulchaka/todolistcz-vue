@@ -99,19 +99,20 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="hover:bg-gray-200">
-        <td class="text-left p-2">HTML&CSS website</td>
-        <td class="text-right p-2">27/02/2021 11:30</td>
-        <td class="text-right p-2">28/02/2021 17:30</td>
-        <td class="text-right p-2">Koder</td>
+      <tr
+        v-for="(item, index) in arr" :key="index"
+        class="hover:bg-gray-200">
+        <td
+          v-for="(elem, index) in item" :key="index"
+          class="text-center p-2">{{ elem }}</td>
         <span class="h-6 flex items-center sm:h-7 pt-2.5 cursor-pointer">
           <svg class="flex-shrink-0 h-6 w-5 text-red-200 hover:text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
           </svg>
         </span>
       </tr>
-      <tr class="hover:bg-gray-200">
-        <td class="text-left p-2">Vue JS 3</td>
+      <!-- <tr class="hover:bg-gray-200">
+        <td class="text-center p-2">Vue JS 3</td>
         <td class="text-right p-2">27/02/2021 14:30</td>
         <td class="text-right p-2">28/02/2021 20:30</td>
         <td class="text-right p-2">FrontEnd</td>
@@ -120,7 +121,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
           </svg>
         </span>
-      </tr>
+      </tr> -->
     </tbody>
 </table>
   </div>
@@ -142,15 +143,7 @@ export default {
   },
   methods: {
     submitHandler (event) {
-      console.group('Form Data:')
-      console.log('Název Úkolu:', this.name)
-      console.log('Datum a Čas Od:', Boolean(this.timestart))
-      console.log('Datum a Čas Do:', this.timeend)
-      console.log('Druh Práce:', this.work)
-      console.groupEnd()
-
       this.arr.push({ name: this.name, timestart: this.timestart, timeend: this.timeend, work: this.work })
-      console.log(this.arr)
       this.name = ''
       this.timestart = ''
       this.timeend = ''
