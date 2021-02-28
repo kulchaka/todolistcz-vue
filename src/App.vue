@@ -99,7 +99,7 @@
               </div>
             </form>
   </div>
-  <div class="shceduel max-w-full ml-5 p-4 shadow-md rounded-xl bg-gradient-to-r from-gray-50  to-purple-50">
+  <div v-if="arr.length > 0" class="shceduel max-w-full ml-5 p-4 shadow-md rounded-xl bg-gradient-to-r from-gray-50  to-purple-50">
   <table class="table-auto">
     <thead>
       <tr>
@@ -141,7 +141,10 @@ export default {
       timeend: '',
       work: '',
       arr: [],
-      sorted: false
+      sortedName: false,
+      sortedTimeStart: false,
+      sortedTimeEnd: false,
+      sortedWork: false
     }
   },
   methods: {
@@ -162,27 +165,80 @@ export default {
       this.arr.splice(i, 1)
     },
     sortByName () {
-      if (!this.sorted) {
+      if (!this.sortedName) {
         this.arr.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1)
-        this.sorted = true
+        this.sortedName = true
+        this.sortedTimeStart = false
+        this.sortedTimeEnd = false
+        this.sortedWork = false
       } else {
         this.arr.reverse()
-        this.sorted = false
+        this.sortedName = false
+        this.sortedTimeStart = false
+        this.sortedTimeEnd = false
+        this.sortedWork = false
       }
     },
     sortByWork () {
-      this.arr.sort((a, b) => a.work > b.work ? 1 : -1)
+      if (!this.sortedWork) {
+        this.arr.sort((a, b) => a.work > b.work ? 1 : -1)
+        this.sortedName = false
+        this.sortedTimeStart = false
+        this.sortedTimeEnd = false
+        this.sortedWork = true
+      } else {
+        this.arr.reverse()
+        this.sortedName = false
+        this.sortedTimeStart = false
+        this.sortedTimeEnd = false
+        this.sortedWork = false
+      }
+    },
+    sortByStartDate () {
+      if (!this.sortedTimeStart) {
+        this.arr.sort((a, b) => {
+          a = Date.parse(a.timeend)
+          b = Date.parse(b.timeend)
+          if (a > b) {
+            return 1
+          } else {
+            return -1
+          }
+        })
+        this.sortedName = false
+        this.sortedTimeStart = true
+        this.sortedTimeEnd = false
+        this.sortedWork = false
+      } else {
+        this.arr.reverse()
+        this.sortedName = false
+        this.sortedTimeStart = false
+        this.sortedTimeEnd = false
+        this.sortedWork = false
+      }
     },
     sortByEndDate () {
-      this.arr.sort((a, b) => {
-        a = Date.parse(a.timeend)
-        b = Date.parse(b.timeend)
-        if (a > b) {
-          return 1
-        } else {
-          return -1
-        }
-      })
+      if (!this.sortedTimeEnd) {
+        this.arr.sort((a, b) => {
+          a = Date.parse(a.timeend)
+          b = Date.parse(b.timeend)
+          if (a > b) {
+            return 1
+          } else {
+            return -1
+          }
+        })
+        this.sortedName = false
+        this.sortedTimeStart = false
+        this.sortedTimeEnd = true
+        this.sortedWork = false
+      } else {
+        this.arr.reverse()
+        this.sortedName = false
+        this.sortedTimeStart = false
+        this.sortedTimeEnd = false
+        this.sortedWork = false
+      }
     }
   }
 }
