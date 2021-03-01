@@ -91,9 +91,7 @@
                     class="ml-2 rounded-lg border-2 border-gray-500 hover:border-cyan-500 focus:border-cyan-500"
                     required
                     >
-                      <option>Kódování</option>
-                      <option>Programování</option>
-                      <option>Meetingy</option>
+                      <option v-for="(item, index) in works" :key="index">{{ item }}</option>
                     </select>
                     <input
                       v-else
@@ -152,6 +150,7 @@ export default {
       name: '',
       timestart: '',
       timeend: '',
+      works: ['Kódování', 'Programování', 'Meetingy'],
       work: '',
       arr: [],
       sortedName: false,
@@ -169,6 +168,9 @@ export default {
         timeend: this.timeend,
         work: this.work
       })
+      if (this.workSelected !== 'yes') {
+        this.addWork()
+      }
       this.name = ''
       this.timestart = ''
       this.timeend = ''
@@ -269,6 +271,9 @@ export default {
         this.sortedTimeEnd = false
         this.sortedWork = false
       }
+    },
+    addWork () {
+      this.works.push(this.work)
     }
   }
 }
