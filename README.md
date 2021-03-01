@@ -1,6 +1,12 @@
-# ToDo List CZ
+# ToDo List
+
+# https://github.com/kulchaka/todolistcz-vue
 
 - this project uses: HTML with TailwindCSS, GIT and Vue JS 3
+
+You can also see an example by following the link below:
+
+#### https://kulchaka.github.io/todolistcz-vue/
 
 ## Project setup
 

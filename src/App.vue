@@ -186,7 +186,6 @@ export default {
         this.sortedTimeEnd = false
         this.sortedWork = false
       } else {
-        // this.arr.reverse()
         this.arr.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? -1 : 1)
         this.sortedName = false
         this.sortedTimeStart = false
@@ -202,7 +201,6 @@ export default {
         this.sortedTimeEnd = false
         this.sortedWork = true
       } else {
-        // this.arr.reverse()
         this.arr.sort((a, b) => a.work > b.work ? -1 : 1)
         this.sortedName = false
         this.sortedTimeStart = false
@@ -226,7 +224,6 @@ export default {
         this.sortedTimeEnd = false
         this.sortedWork = false
       } else {
-        // this.arr.reverse()
         this.arr.sort((a, b) => {
           a = Date.parse(a.timestart)
           b = Date.parse(b.timestart)
@@ -258,7 +255,6 @@ export default {
         this.sortedTimeEnd = true
         this.sortedWork = false
       } else {
-        // this.arr.reverse()
         this.arr.sort((a, b) => {
           a = Date.parse(a.timeend)
           b = Date.parse(b.timeend)
@@ -273,11 +269,6 @@ export default {
         this.sortedTimeEnd = false
         this.sortedWork = false
       }
-    }
-  },
-  watch: {
-    workSelected () {
-      console.log(this.workSelected)
     }
   }
 }
